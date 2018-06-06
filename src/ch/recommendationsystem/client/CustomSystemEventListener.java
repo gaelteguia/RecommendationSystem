@@ -17,7 +17,6 @@ public class CustomSystemEventListener implements SystemEventListener {
 	@Override
 	public boolean isListenerForSource(Object value) {
 
-		// only for Application
 		return (value instanceof Application);
 	}
 
@@ -25,13 +24,12 @@ public class CustomSystemEventListener implements SystemEventListener {
 	public void processEvent(SystemEvent event) throws AbortProcessingException {
 
 		if (event instanceof PostConstructApplicationEvent) {
-			// String path = getServletContext().getRealPath("/filename.txt");
 			System.out.println("Application Started. PostConstructApplicationEvent occurred!");
 
-			File inputFile = new File("C:\\data\\automatic_tagging\\test\\contents.txt");
+			File inputFile = new File("data/automatic_tagging/test/contents.txt");
 			// File inputFile = File.createTempFile("contents", ".txt");
 			System.out.println(inputFile.getAbsolutePath());
-			// System.out.println("Euye Voila X");
+
 			Thread thread = new Thread(new MyRunnable());
 			thread.start();
 
@@ -41,10 +39,10 @@ public class CustomSystemEventListener implements SystemEventListener {
 			try {
 				IndexerSingleton.getInstance().close();
 			} catch (CorruptIndexException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 			System.out.println("PreDestroyApplicationEvent occurred. Application is stopping.");

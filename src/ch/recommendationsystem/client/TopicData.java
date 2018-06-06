@@ -18,20 +18,17 @@ import javax.faces.bean.ManagedBean;
 @ApplicationScoped
 public class TopicData implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public List<String> data = Arrays.asList("sup1", "sup2", "sup3");
+	public List<String> data = Arrays.asList("topic1", "topic2", "topic3");
 
-	public List<String> results = Arrays.asList("sup1", "sup2", "sup3");
+	public List<String> results = Arrays.asList("topic1", "topic2", "topic3");
 
 	public TopicData() {
 		System.out.println("ApplicationContainer constructed");
 
 		String fileName = "C:\\data\\automatic_tagging\\test\\contents.key";
 
-		// read file into stream, try-with-resources
 		try (Stream<String> stream = Files.lines(Paths.get(fileName), Charset.forName("UTF-8"))) {
 			data = stream.collect(Collectors.toList());
-
-			// stream.forEach(System.out::println);
 
 		} catch (IOException e) {
 			e.printStackTrace();

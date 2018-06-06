@@ -141,10 +141,10 @@ public class MauiTopicExtractor implements OptionHandler {
 	public String vocabularyFormat = null;
 
 	/** Document language */
-	public String documentLanguage = "en";
+	public String documentLanguage = "fr";
 
 	/** Document encoding */
-	public String documentEncoding = "default";
+	public String documentEncoding = "UTF-8";
 
 	/** Debugging mode? */
 	public boolean debugMode = false;
@@ -177,7 +177,7 @@ public class MauiTopicExtractor implements OptionHandler {
 	public Stemmer stemmer = new PorterStemmer();
 
 	/** Llist of stopwords to be used */
-	public Stopwords stopwords = new StopwordsEnglish("data/stopwords/stopwords_en.txt");
+	public Stopwords stopwords = new StopwordsFrench("data/stopwords/stopwords_fr.txt");
 
 	private Vocabulary vocabulary = null;
 

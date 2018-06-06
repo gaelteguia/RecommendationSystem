@@ -29,13 +29,11 @@ public class Indexer {
 
 	private IndexWriter writer;
 	private StandardAnalyzer analyzer;
-	// 1. create the index
+
 	private Directory index = new RAMDirectory();
 
 	public Indexer() throws IOException {
 
-		// 0. Specify the analyzer for tokenizing text.
-		// The same analyzer should be used for indexing and searching
 		analyzer = new StandardAnalyzer();
 
 		IndexWriterConfig conf = new IndexWriterConfig(analyzer);
@@ -55,11 +53,9 @@ public class Indexer {
 		doc.add(new TextField("content", resource.getContent(), Field.Store.YES));
 		if (resource.getKeywords() != null && !resource.getKeywords().isEmpty())
 			doc.add(new TextField("keywords", resource.getKeywords().toString(), Field.Store.YES));
-		// use a string field for isbn because we don't want it tokenized
+
 		doc.add(new StringField("id", resource.getId(), Field.Store.YES));
 
-		// update indexes for resource contents
-		// writer.updateDocument(new Term("id", resource.getId()), doc);
 		if (writer.getConfig().getOpenMode() == OpenMode.CREATE) {
 			System.out.println("adding ");
 			writer.addDocument(doc);
@@ -67,7 +63,7 @@ public class Indexer {
 			System.out.println("updating ");
 			writer.updateDocument(new Term("id", resource.getId()), doc);
 		}
-		// writer.close();
+
 	}
 
 	public int indexResource(Resource resource) throws IOException {
@@ -76,27 +72,23 @@ public class Indexer {
 		return writer.numDocs();
 	}
 
-	public List<String> searchIndex(String queryStr) {
+	public List<String> searchIndex(String queryStr) throws IOException {
+		writer.commit();
 		IndexReader reader = null;
 		List<String> results = new ArrayList<String>();
 		try {
-			// Create Reader
+
 			reader = DirectoryReader.open(index);
 
-			// Create index searcher
 			IndexSearcher searcher = new IndexSearcher(reader);
 
-			// Build query
 			QueryParser qp = new QueryParser("content", analyzer);
 			Query query = qp.parse(queryStr);
 
-			// Search the index
 			TopDocs foundDocs = searcher.search(query, 10);
 
-			// Total found documents
 			System.out.println("Total Results :: " + foundDocs.totalHits);
 
-			// Let's print found doc names and their content along with score
 			for (ScoreDoc sd : foundDocs.scoreDocs) {
 				Document d = searcher.doc(sd.doc);
 				System.out.println("Document Name : " + d.get("title") + "  :: url : " + d.get("url") + "  :: Score : "
@@ -104,10 +96,10 @@ public class Indexer {
 				results.add("Document Name : " + d.get("title") + "  :: url : " + d.get("url") + "  :: Score : "
 						+ sd.score);
 			}
-			// don't forget to close the reader
+
 			reader.close();
 		} catch (IOException | ParseException e) {
-			// Any error goes here
+
 			e.printStackTrace();
 		}
 		return results;

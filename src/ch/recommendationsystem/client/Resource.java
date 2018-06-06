@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
