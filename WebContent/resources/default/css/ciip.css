@@ -1,0 +1,84 @@
+@font-face {
+	font-family: 'Acme';
+	src: url('Acme.woff');
+	src: url('Acme.eot'); /* IE9 Compat Modes */
+	src: url('Acme.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('Acme.woff2') format('woff2'), /* Super Modern Browsers */
+		
+       url('Acme.woff') format('woff'), /* Pretty Modern Browsers */
+	
+       url('Acme.ttf') format('truetype'), /* Safari, Android, iOS */
+		
+       url('Acme.svg#svgFontName') format('svg');
+}
+
+@font-face {
+	font-family: MyWebFont;
+	src: url(Acme.eot);
+	src: url('Acme.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('Acme.woff2') format('woff2'), /* Super Modern Browsers */
+		
+		
+       url('Acme.woff') format('woff'), /* Pretty Modern Browsers */
+       url('Acme.ttf') format('truetype'), /* Safari, Android, iOS */
+		
+		
+       url('Acme.svg#svgFontName') format('svg');
+	/* Legacy iOS */
+	font-weight: normal;
+	font-style: normal;
+}
+
+html, body {
+	font-family: MyWebFont, Acme, Segoe UI, sans-serif;
+	line-height: 1.5;
+	font-weight: 300;
+	letter-spacing: 0.3px;
+}
+
+span, p, h1, h2, h3, h4, h5, h6, ul, li, table, a, div {
+	font-family: MyWebFont, Acme, Segoe UI, Andika;
+	text-rendering: auto;
+}
+
+p, span {
+	text-rendering: optimizeLegibility;
+}
+
+.blur {
+	-webkit-filter: blur(6px);
+	filter: blur(6px);
+}
+
+.tales {
+	width: 100%;
+}
+
+.carousel-inner {
+	width: 100%;
+	max-height: 682px !important;
+}
+
+.thumbnail {
+	position: relative;
+	width: 350px;
+	height: 350px;
+	overflow: hidden;
+}
+
+.thumbnail img {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 100%;
+	width: auto;
+	margin: -75px 0 0 -100px;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.thumbnail img.portrait {
+	width: 100%;
+	height: auto;
+}

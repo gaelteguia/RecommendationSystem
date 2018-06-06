@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<link href='https://fonts.googleapis.com/css?family=Acme'
+		rel='stylesheet' />
+
+	<b:navBar class="navbar navbar-default navbar-fixed-top" brand=""
+		brandHref="#" id="dropMenuExample"
+		contentDisabled="#{navBarBean.navBarDisabled}">
+		<b:navbarLinks contentDisabled="#{navBarBean.navBarLinksDisabled}">
+			<b:navLink value="APP CIIP"
+				style="color:white;background-color:rgb(200, 10, 30);font-stretch: expanded; font-size: 100%;font-weight: 800;margin: 1px;"
+				outcome="list_manifestation"></b:navLink>
+
+			<b:dropMenu value="MANIFESTATION"
+				contentDisabled="#{navBarBean.dropMenuDisabled}">
+				<b:navLink value="SOUMETTRE" outcome="create_manifestation"></b:navLink>
+				<b:navLink value="LISTER" outcome="list_manifestation"></b:navLink>
+
+			</b:dropMenu>
+			<b:dropMenu value="VACANCES SCOLAIRES"
+				contentDisabled="#{navBarBean.dropMenuDisabled}">
+				<b:navLink value="INTRODUIRE" outcome="create_holiday"></b:navLink>
+				<b:navLink value="LISTER" outcome="list_holiday"></b:navLink>
+
+			</b:dropMenu>
+
+		</b:navbarLinks>
+		<h:form class="navbar-form navbar-right hidden-md hidden-sm hidden-xs"
+			role="search" id="searchForm">
+			<div class="input-group">
+
+				<h:inputText id="keyword" class="form-control"
+					value="#{manifestationBean.keyword}" required="true" size="20"
+					maxlength="20" requiredMessage="#{msg['manifestation.keyword']}">
+
+				</h:inputText>
+				<h:message id="keywordMessage" for="keyword" errorClass="error" />
+
+				<div class="input-group-btn">
+					<b:commandButton class="btn btn-default"
+						action="#{manifestationBean.search()}" styleClass="" type="submit"
+						icon="search" icon-align="right">
+
+
+					</b:commandButton>
+
+				</div>
+			</div>
+
+
+		</h:form>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#"> Sign Up <span
+					class="glyphicon glyphicon-user"></span></a></li>
+			<li><a href="#"> Login <span
+					class="glyphicon glyphicon-log-in"></span></a></li>
+		</ul>
+
+	</b:navBar>
+
+
+	<div class="container">
+		<b:column medium-screen="4">
+			<br />
+			<br />
+
+			<b:image library="images" name="Logo_mail.png" style="width:30%" />
+			<br />
+			<br />
+
+		</b:column>
+
+		<b:column medium-screen="4">
+			<div class="starter-template">
+				<h1>APP CIIP</h1>
+				<p class="lead">Serveur des manifestations de l'Espace romand de
+					la formation</p>
+
+
+			</div>
+		</b:column>
+		<b:column medium-screen="4">
+			<div class="col-sm-updated"></div>
+			<br />
+			<br />
+			<p align="right">
+				<h:outputText value="#{dateTimeBean.currentDate}">
+					<f:convertDateTime locale="fr_CH" timeStyle="short" type="both"
+						dateStyle="full" />
+				</h:outputText>
+			</p>
+		</b:column>
+
+
+
+	</div>
+	<!-- /.container -->
+
+
+
+</ui:composition>
