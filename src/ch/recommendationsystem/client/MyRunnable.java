@@ -12,9 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -94,9 +91,8 @@ public class MyRunnable implements Runnable {
 		setGeneralOptions();
 		setFeatures();
 
-		// Directories with train & test data
-		String trainDir = "C:\\data\\automatic_tagging\\train";
-		String testDir = "C:\\data\\automatic_tagging\\test";
+		String trainDir = "C:\\glassfish4\\glassfish\\domains\\domain1\\config\\data\\automatic_tagging\\train";
+		String testDir = "C:\\glassfish4\\glassfish\\domains\\domain1\\config\\data\\automatic_tagging\\test";
 
 		String modelName = "test";
 
@@ -180,7 +176,7 @@ public class MyRunnable implements Runnable {
 			CrawlConfig config = new CrawlConfig();
 			config.setCrawlStorageFolder(crawlStorageFolder);
 			config.setIncludeBinaryContentInCrawling(true);
-			config.setPolitenessDelay(100);
+			// config.setPolitenessDelay(100);
 			config.setMaxDepthOfCrawling(2);
 			config.setMaxDownloadSize(maxDownloadSize);
 			config.setIncludeHttpsPages(true);
@@ -229,21 +225,7 @@ public class MyRunnable implements Runnable {
 			controller.waitUntilFinish();
 
 			getKeywords();
-			// ResourceSingleton.getInstance();
-			Set<Entry<String, Resource>> setMap = ResourceSingleton.getResources().entrySet();
-			Iterator<Entry<String, Resource>> iteratorMap = setMap.iterator();
 
-			System.out.println(ResourceSingleton.getResources().entrySet());
-
-			while (iteratorMap.hasNext()) {
-				Map.Entry<String, Resource> entry = (Map.Entry<String, Resource>) iteratorMap.next();
-				String key = entry.getKey();
-				Resource values = entry.getValue();
-
-				System.out.println(IndexerSingleton.getInstance().indexResource(values));
-
-				System.out.println("Key = '" + key + "' has values: " + values.getId());
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

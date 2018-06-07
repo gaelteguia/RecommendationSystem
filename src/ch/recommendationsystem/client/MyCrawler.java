@@ -34,59 +34,37 @@ public class MyCrawler extends WebCrawler {
 	public void visit(Page page) {
 		String url = page.getWebURL().getURL();
 		System.out.println("URL: " + url);
-
 		URL u = null;
 		try {
 			u = new URL(url);
-		} catch (MalformedURLException e2) {
-			e2.printStackTrace();
-		}
-
-		try {
 			File inputFile = File.createTempFile("temp-file-name", ".pdf");
-
 			FileUtils.copyURLToFile(u, inputFile);
-
 			PDDocument document = null;
-			try {
-				document = PDDocument.load(inputFile);
-			} catch (InvalidPasswordException e3) {
-				e3.printStackTrace();
-			} catch (IOException e3) {
-				e3.printStackTrace();
-			}
-
+			document = PDDocument.load(inputFile);
 			PDDocumentInformation pdd = document.getDocumentInformation();
 			PDFTextStripper pdfStripper = new PDFTextStripper();
-
 			String text;
-
 			text = pdd.getAuthor();
-
 			text = text + " " + pdd.getTitle();
-
 			text = text + " " + pdd.getSubject();
-
 			text = text + " " + pdd.getCreator();
 			text = text + " " + pdd.getKeywords();
 			text = text + " " + pdfStripper.getText(document);
-
 			// ResourceSingleton.getInstance();
 			ResourceSingleton.getResources().get(url).setContent(text.trim());
+			Files.write(Paths.get(
+					"C:\\glassfish4\\glassfish\\domains\\domain1\\config\\data\\automatic_tagging\\test\\contents.txt"),
+					text.trim().getBytes(), StandardOpenOption.APPEND);
+			System.out.println(IndexerSingleton.getInstance().indexResource(ResourceSingleton.getResources().get(url)));
 
-			Files.write(Paths.get("C:\\data\\automatic_tagging\\test\\contents.txt"), text.trim().getBytes(),
-					StandardOpenOption.APPEND);
+			document.close();
 
-			try {
-				document.close();
-			} catch (IOException e3) {
-				e3.printStackTrace();
-			}
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-
+		} catch (InvalidPasswordException e3) {
+			e3.printStackTrace();
+		} catch (IOException e3) {
+			e3.printStackTrace();
 		}
+
 	}
 
 }

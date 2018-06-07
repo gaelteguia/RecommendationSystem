@@ -25,7 +25,7 @@ public class TopicData implements Serializable {
 	public TopicData() {
 		System.out.println("ApplicationContainer constructed");
 
-		String fileName = "C:\\data\\automatic_tagging\\test\\contents.key";
+		String fileName = "C:\\glassfish4\\glassfish\\domains\\domain1\\config\\data\\automatic_tagging\\test\\contents.key";
 
 		try (Stream<String> stream = Files.lines(Paths.get(fileName), Charset.forName("UTF-8"))) {
 			data = stream.collect(Collectors.toList());

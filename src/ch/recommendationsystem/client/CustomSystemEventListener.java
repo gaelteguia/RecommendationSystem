@@ -26,9 +26,23 @@ public class CustomSystemEventListener implements SystemEventListener {
 		if (event instanceof PostConstructApplicationEvent) {
 			System.out.println("Application Started. PostConstructApplicationEvent occurred!");
 
-			File inputFile = new File("data/automatic_tagging/test/contents.txt");
+			// File inputFile = new File("data/automatic_tagging/test/contents.txt");
+
+			String path = "data" + File.separator + "automatic_tagging" + File.separator + "test" + File.separator
+					+ "contents.txt";
+			// Use relative path for Unix systems
+			File f = new File(path);
+
+			f.getParentFile().mkdirs();
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			// File inputFile = File.createTempFile("contents", ".txt");
-			System.out.println(inputFile.getAbsolutePath());
+			System.out.println(f.getAbsolutePath());
 
 			Thread thread = new Thread(new MyRunnable());
 			thread.start();
